@@ -1,0 +1,42 @@
+--- 
+
+name: Add salt components and config
+actions:
+  -
+    action: copy_file
+    always_execute: true
+    attributes:                     
+      dst_url: /mnt/flash   
+      mode: 777 
+      overwrite: if-missing
+      src_url: files/salt-eos-latest.swix
+  
+  -
+    action: copy_file
+    always_execute: true
+    attributes:
+      dst_url: /mnt/flash
+      mode: 777
+      overwrite: if-missing
+      src_url: files/startup.sh
+
+  -
+    action: install_extension
+    always_execute: true
+    attributes:
+      url: files/salt-eos-latest.swix
+      force: true
+      name: "Install the Salt agent"
+
+  -
+    action: add_config
+    always_execute: true
+    attributes:
+      url: files/config.template
+    name: "starting unix socket and config for salt agent"
+    onstart: "Adding config"
+    onsuccess: "Added config"
+    onfailure: "Config failute"
+
+
+

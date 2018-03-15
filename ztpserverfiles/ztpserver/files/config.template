@@ -1,0 +1,8 @@
+management api http-commands
+         protocol unix-socket
+         no shutdown
+!
+event-handler install-salt
+   trigger on-boot
+   action bash sudo /mnt/flash/startup.sh
+
